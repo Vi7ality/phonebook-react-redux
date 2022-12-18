@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { nanoid } from 'nanoid';
 
 export class Input extends Component {
   static defaultProps = {};
@@ -19,10 +20,14 @@ export class Input extends Component {
 
     onSubmit = (event) => {
         event.preventDefault();
+        this.setState({
+            id: this.getID()
+        })
         this.props.formHandlerSubmit(this.state);
-        event.currentTarget.value.reset()
         this.reset();
     }
+
+    getID = () => nanoid(3);
 
     reset = () => {
         this.setState({

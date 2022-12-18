@@ -6,6 +6,10 @@ export class Contacts extends Component {
   static propTypes = {};
 
   render() {
-    return <div>Contacts</div>;
+      return <ul>{
+          this.props.contacts.map(contact => {
+              console.log(contact);
+              return <li key={contact.id}>{contact.name}</li>
+      })}</ul>;
   }
 }
