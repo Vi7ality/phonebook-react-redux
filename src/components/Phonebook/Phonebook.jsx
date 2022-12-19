@@ -18,11 +18,11 @@ export class Phonebook extends Component {
     filter: '',
   };
 
-      {
-      return {contacts: [data, ...prevState.contacts]}
+  filterChange = event => {
     this.setState({
       filter: event.currentTarget.value,
     })
+  };
 
   getVisibleContacts = () => {
     const { contacts, filter } = this.state;
