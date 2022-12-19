@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { Component } from 'react';
 
 export class Contacts extends Component {
   static defaultProps = {};
@@ -6,10 +6,30 @@ export class Contacts extends Component {
   static propTypes = {};
 
   render() {
-      return <ul>{
-          this.props.contacts.map(contact => {
-              console.log(contact);
-              return <li key={contact.id}>{contact.name}</li>
-      })}</ul>;
+    const { contacts, onClick } = this.props;
+
+    return (
+      <div>
+        <h2>Contacts</h2>
+        <ul>
+          {contacts.map(({ id, name, number }) => {
+            return (
+              <li key={id}>
+                <p>{name}</p>
+                <p>{number}</p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    onClick(id);
+                  }}
+                >
+                  Delete
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    );
   }
 }
