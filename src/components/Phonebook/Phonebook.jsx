@@ -2,6 +2,7 @@ import { Contacts } from 'components/Contacts/Contacts';
 import { Input } from 'components/Input/Input';
 import { Component } from 'react';
 import { Filter } from 'components/Filter/Filter';
+import { ContactsPart, PhonebookStyle, Title } from './Phonebook.styled';
 
 export class Phonebook extends Component {
   static defaultProps = {};
@@ -21,16 +22,18 @@ export class Phonebook extends Component {
   filterChange = event => {
     this.setState({
       filter: event.currentTarget.value,
-    })
+    });
   };
 
   getVisibleContacts = () => {
     const { contacts, filter } = this.state;
     const normalizedFilter = filter.toLowerCase();
-    return contacts.filter(contact => contact.name.toLowerCase().includes(normalizedFilter))
-  }
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter)
+    );
+  };
 
-    deleteContact = id => {
+  deleteContact = id => {
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => contact.id !== id),
     }));
@@ -43,16 +46,27 @@ export class Phonebook extends Component {
     });
   };
 
-
   render() {
     const visibleContacts = this.getVisibleContacts();
     return (
-      <div>
-        <h1>Phonebook</h1>
-        <Input formHandlerSubmit={this.formHandlerSubmit}></Input>
-        <Filter onChange={this.filterChange} value={this.state.filter}></Filter>
-        <Contacts contacts={visibleContacts} onClick={this.deleteContact}></Contacts>
-      </div>
+      <PhonebookStyle>
+        <div>
+          <Title>Phonebook</Title>
+          <Input formHandlerSubmit={this.formHandlerSubmit}></Input>
+        </div>
+        <ContactsPart>
+          {' '}
+          <Title>Contacts</Title>
+          <Filter
+            onChange={this.filterChange}
+            value={this.state.filter}
+          ></Filter>
+          <Contacts
+            contacts={visibleContacts}
+            onClick={this.deleteContact}
+          ></Contacts>
+        </ContactsPart>
+      </PhonebookStyle>
     );
   }
 }
