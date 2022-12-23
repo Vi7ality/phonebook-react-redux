@@ -4,6 +4,8 @@ import { Component } from 'react';
 import { Filter } from 'components/Filter/Filter';
 import { ContactsPart, PhonebookStyle, Title } from './Phonebook.styled';
 
+const LS_KEY = 'local_contacts';
+
 export class Phonebook extends Component {
   static defaultProps = {};
 
@@ -45,6 +47,22 @@ export class Phonebook extends Component {
       return { contacts: [data, ...prevState.contacts] };
     });
   };
+
+  componentDidMount() {
+    const savedState = localStorage.getItem(LS_KEY);
+    if (savedState) {
+      const parsedState = JSON.parse(savedState);
+      this.setState({contacts: parsedState})
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.contacts.length !== this.state.contacts) {
+      localStorage.setItem(LS_KEY, JSON.stringify(this.state.contacts));
+    }
+      
+
+  }
 
   render() {
     const visibleContacts = this.getVisibleContacts();

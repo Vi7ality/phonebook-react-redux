@@ -2,6 +2,8 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ContactName, ContactNumber, ContactsItem, ContactsList, DeleteBtn } from './Contacts.styled';
 
+
+
 export class Contacts extends Component {
 
   static propTypes = {
