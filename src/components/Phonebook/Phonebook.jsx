@@ -42,7 +42,13 @@ export class Phonebook extends Component {
   };
 
   formHandlerSubmit = data => {
-    console.log(data);
+    // console.log(data);
+    const { contacts } = this.state;
+    if(contacts.find(contact =>
+      contact.name.toLowerCase() === data.name.toLowerCase())) {
+      alert(`${data.name} is already exist in your contacts`)
+      return
+      }
     this.setState(prevState => {
       return { contacts: [data, ...prevState.contacts] };
     });
