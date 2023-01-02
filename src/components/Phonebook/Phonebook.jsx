@@ -1,96 +1,96 @@
 import { Contacts } from 'components/Contacts/Contacts';
 import { Input } from 'components/Input/Input';
-import { Component } from 'react';
+import { useState, useEffect } from 'react';
 import { Filter } from 'components/Filter/Filter';
 import { ContactsPart, PhonebookStyle, Title } from './Phonebook.styled';
 
-const LS_KEY = 'local_contacts';
 
-export class Phonebook extends Component {
-  static defaultProps = {};
 
-  static propTypes = {};
+export function Phonebook() {
+  const LS_KEY = 'local_contacts';
+  const savedContacts = localStorage.getItem(LS_KEY);
+  const parsedContacts = JSON.parse(savedContacts);
 
-  state = {
-    contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
-    filter: '',
+
+  const [contacts, setContacts] = useState(parsedContacts ?? [
+    { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+    { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+    { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+    { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+  ]);
+  const [filter, setFilter] = useState('');
+
+  // state = {
+  //   contacts: [
+  //     { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+  //     { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+  //     { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+  //     { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+  //   ],
+  //   filter: '',
+  // };
+
+  const filterChange = event => {
+    setFilter(event.currentTarget.value,
+    );
   };
 
-  filterChange = event => {
-    this.setState({
-      filter: event.currentTarget.value,
-    });
-  };
-
-  getVisibleContacts = () => {
-    const { contacts, filter } = this.state;
+  const getVisibleContacts = () => {
+    
     const normalizedFilter = filter.toLowerCase();
     return contacts.filter(contact =>
       contact.name.toLowerCase().includes(normalizedFilter)
     );
   };
 
-  deleteContact = id => {
-    this.setState(prevState => ({
-      contacts: prevState.contacts.filter(contact => contact.id !== id),
-    }));
-  };
 
-  formHandlerSubmit = data => {
-    // console.log(data);
-    const { contacts } = this.state;
-    if(contacts.find(contact =>
-      contact.name.toLowerCase() === data.name.toLowerCase())) {
-      alert(`${data.name} is already exist in your contacts`)
-      return
-      }
-    this.setState(prevState => {
-      return { contacts: [data, ...prevState.contacts] };
-    });
-  };
-
-  componentDidMount() {
-    const savedState = localStorage.getItem(LS_KEY);
-    if (savedState) {
-      const parsedState = JSON.parse(savedState);
-      this.setState({contacts: parsedState})
-    }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.contacts.length !== this.state.contacts) {
-      localStorage.setItem(LS_KEY, JSON.stringify(this.state.contacts));
-    }
-      
-
-  }
-
-  render() {
-    const visibleContacts = this.getVisibleContacts();
-    return (
-      <PhonebookStyle>
-        <div>
-          <Title>Phonebook</Title>
-          <Input formHandlerSubmit={this.formHandlerSubmit}></Input>
-        </div>
-        <ContactsPart>
-          {' '}
-          <Title>Contacts</Title>
-          <Filter
-            onChange={this.filterChange}
-            value={this.state.filter}
-          ></Filter>
-          <Contacts
-            contacts={visibleContacts}
-            onClick={this.deleteContact}
-          ></Contacts>
-        </ContactsPart>
-      </PhonebookStyle>
+  const deleteContact = id => {
+    setContacts(prevState => 
+       [prevState.contacts.filter(contact => contact.id !== id)]
     );
-  }
+  };
+
+  const formHandlerSubmit = data => {
+    // console.log(data);
+    if (
+      contacts.find(
+        contact => contact.name.toLowerCase() === data.name.toLowerCase()
+      )
+    ) {
+      alert(`${data.name} is already exist in your contacts`);
+      return;
+    }
+    setContacts(prevState => 
+      [...prevState, data]
+    );
+  };
+
+  // useEffect(() => {
+  //   const savedState = localStorage.getItem(LS_KEY);
+  //   if (savedState) {
+  //     const parsedState = JSON.parse(savedState);
+  //     setContacts(parsedState);
+  //   }
+  // }, []);
+
+  useEffect(() => {
+
+      localStorage.setItem(LS_KEY, JSON.stringify(contacts));
+    
+  },[contacts]);
+
+  return (
+    <PhonebookStyle>
+      <div>
+        <Title>Phonebook</Title>
+        <Input formHandlerSubmit={formHandlerSubmit}></Input>
+      </div>
+      <ContactsPart>
+        {' '}
+        <Title>Contacts</Title>
+        <Filter onChange={filterChange} value={filter}></Filter>
+        <Contacts contacts={getVisibleContacts()} onClick={deleteContact}></Contacts>
+      </ContactsPart>
+    </PhonebookStyle>
+  );
 }
