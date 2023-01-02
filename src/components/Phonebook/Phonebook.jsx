@@ -46,12 +46,11 @@ export function Phonebook() {
 
   const deleteContact = id => {
     setContacts(prevState => 
-       [prevState.contacts.filter(contact => contact.id !== id)]
+       [...prevState.filter(contact => contact.id !== id)]
     );
   };
 
   const formHandlerSubmit = data => {
-    // console.log(data);
     if (
       contacts.find(
         contact => contact.name.toLowerCase() === data.name.toLowerCase()
@@ -65,13 +64,6 @@ export function Phonebook() {
     );
   };
 
-  // useEffect(() => {
-  //   const savedState = localStorage.getItem(LS_KEY);
-  //   if (savedState) {
-  //     const parsedState = JSON.parse(savedState);
-  //     setContacts(parsedState);
-  //   }
-  // }, []);
 
   useEffect(() => {
 

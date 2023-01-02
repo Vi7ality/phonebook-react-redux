@@ -1,18 +1,11 @@
-import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ContactName, ContactNumber, ContactsItem, ContactsList, DeleteBtn } from './Contacts.styled';
 
 
 
-export class Contacts extends Component {
+export function Contacts(props) {
 
-  static propTypes = {
-    contacts: PropTypes.array.isRequired,
-    onClick: PropTypes.func.isRequired,
-  };
-
-  render() {
-    const { contacts, onClick } = this.props;
+    const { contacts, onClick } = props;
 
     return (
       <div>
@@ -37,4 +30,10 @@ export class Contacts extends Component {
       </div>
     );
   }
-}
+
+
+
+Contacts.propTypes = {
+    contacts: PropTypes.array.isRequired,
+    onClick: PropTypes.func.isRequired,
+  };
