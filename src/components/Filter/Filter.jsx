@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { FilterInput, FilterLabelText } from './Filter.styled';
 
-export function Filter(props) {
+export function Filter({value, onChange}) {
   return (
     <label>
       <FilterLabelText>Find contacts by name</FilterLabelText>
@@ -10,8 +10,8 @@ export function Filter(props) {
         name="filter"
         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
         title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-        value={props.value}
-        onChange={props.onChange}
+        value={value}
+        onChange={onChange}
       />
     </label>
   );
