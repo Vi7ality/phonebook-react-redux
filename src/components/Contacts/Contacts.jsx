@@ -1,6 +1,6 @@
 
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteContact } from 'redux/actions';
+import { deleteContact } from 'redux/contactsSlice';
 import { getContacts, getFilterQuery } from 'redux/selectors';
 import { ContactName, ContactNumber, ContactsItem, ContactsList, DeleteBtn } from './Contacts.styled';
 
@@ -20,7 +20,7 @@ export function Contacts() {
     );
   };
 
-  const visibleContacts = getVisibleContacts()
+  const visibleContacts = getVisibleContacts();
   
 
     return (

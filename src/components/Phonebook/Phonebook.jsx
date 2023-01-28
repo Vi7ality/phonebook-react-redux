@@ -1,11 +1,11 @@
 import { Contacts } from 'components/Contacts/Contacts';
 import { Input } from 'components/Input/Input';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Filter } from 'components/Filter/Filter';
 import { ContactsPart, PhonebookStyle, Title } from './Phonebook.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { getContacts, getFilterQuery } from 'redux/selectors';
-import { addContact } from 'redux/actions';
+import { getContacts } from 'redux/selectors';
+import { addContact } from 'redux/contactsSlice';
 
 export function Phonebook() {
   // const LS_KEY = 'local_contacts';
