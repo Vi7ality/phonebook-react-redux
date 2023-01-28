@@ -9,6 +9,7 @@ export function Input(props) {
   const [number, setNumber] = useState('');
   const [id, setId] = useState('')
 
+
   const handleChange = event => {
     const { name, value } = event.currentTarget;
     switch (name) {

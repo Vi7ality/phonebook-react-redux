@@ -2,12 +2,13 @@ import { createAction } from '@reduxjs/toolkit';
 export const addContact = createAction('contacts/AddContact', contact => {
   return {
     payload: {
-      contact,
       id: contact.id,
+      name: contact.name,
+      number: contact.number,
     },
   };
 });
 
-export const deleteContact = createAction('contacts/AddContact');
+export const deleteContact = createAction('contacts/DeleteContact');
 
-export const setFilter = createAction('filter/SetFilter');
+export const setFilter = createAction('filterQuery/SetFilter');

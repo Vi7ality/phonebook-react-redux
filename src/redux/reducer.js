@@ -24,7 +24,7 @@ export const contactsReducer = createReducer(contactsInitialState, {
     state.push(action.payload);
   },
   [deleteContact]: (state, action) => {
-    const index = state.filter(contact => contact.id !== action.payload);
+    const index = state.findIndex(contact => contact.id === action.payload);
     state.splice(index, 1);
   },
 });
@@ -32,6 +32,7 @@ export const contactsReducer = createReducer(contactsInitialState, {
 const filterInitialState = '';
 export const filterReducer = createReducer(filterInitialState, {
   [setFilter]: (state, action) => {
-    state.filter = action.payload;
+    // state.push(action.payload);
+    return `${action.payload}`;
   },
 });
