@@ -1,16 +1,13 @@
 import { Contacts } from 'components/Contacts/Contacts';
-import { Input } from 'components/Input/Input';
-import { useEffect } from 'react';
+import { Input } from 'components/Form/Form';
 import { Filter } from 'components/Filter/Filter';
 import { ContactsPart, PhonebookStyle, Title } from './Phonebook.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { getContacts } from 'redux/selectors';
 import { addContact } from 'redux/contactsSlice';
+import Notiflix from 'notiflix';
 
 export function Phonebook() {
-  // const LS_KEY = 'local_contacts';
-  // const savedContacts = localStorage.getItem(LS_KEY);
-  // const parsedContacts = JSON.parse(savedContacts);
 
   const contacts = useSelector(getContacts);
 
@@ -22,17 +19,11 @@ export function Phonebook() {
         contact => contact.name.toLowerCase() === data.name.toLowerCase()
       )
     ) {
-      alert(`${data.name} is already exist in your contacts`);
+      Notiflix.Notify.failure(`${data.name} is already exist in your contacts`);
       return;
     }
     dispatch(addContact(data));
   };
-
-  // useEffect(() => {
-
-  //     localStorage.setItem(LS_KEY, JSON.stringify(contacts));
-
-  // },[contacts]);
 
   return (
     <PhonebookStyle>

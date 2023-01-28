@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
-import { Form, FormButton, FormInput, Label, LabelText } from './Input.styled';
+import { Form, FormButton, FormInput, Label, LabelText } from './Form.styled';
 
 export function Input(props) {
 
