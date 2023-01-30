@@ -51,7 +51,6 @@ const contactsSlice = createSlice({
       const index = state.data.findIndex(
         contact => contact.id === action.payload.id
       );
-      console.log('index:', index);
       state.data.splice(index, 1);
     },
   },
