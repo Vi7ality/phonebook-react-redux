@@ -1,14 +1,19 @@
 import { useState } from 'react';
 import { nanoid } from 'nanoid';
-import PropTypes from 'prop-types';
 import { Form, FormButton, FormInput, Label, LabelText } from './Form.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectContacts } from 'redux/selectors';
+import Notiflix from 'notiflix';
+import { addContact } from 'redux/operations';
 
-export function Input(props) {
+export function Input() {
 
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
   const [id, setId] = useState('')
 
+  const contacts = useSelector(selectContacts);
+    const dispatch = useDispatch();
 
   const handleChange = event => {
     const { name, value } = event.currentTarget;
@@ -16,8 +21,8 @@ export function Input(props) {
       case 'name':
         setName(value);
         break
-      case 'number':
-        setNumber(value);
+      case 'phone':
+        setPhone(value);
         break
       default:
         return
@@ -27,14 +32,22 @@ export function Input(props) {
 
   const onSubmit = event => {
     event.preventDefault();
-    props.formHandlerSubmit({name, number, id});
+        if (
+      contacts.find(
+        contact => contact.name.toLowerCase() === name.toLowerCase()
+      )
+    ) {
+      Notiflix.Notify.failure(`${name} is already exist in your contacts`);
+      return;
+    }
+    dispatch(addContact({name, phone, id}));
     reset();
   };
 
 
   const reset = () => {
     setName('');
-    setNumber('');
+    setPhone('');
     setId('')
   };
 
@@ -55,11 +68,11 @@ export function Input(props) {
         <Label> <LabelText>Number</LabelText>
           <FormInput
             type="tel"
-            name="number"
+            name="phone"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
-            value={number}
+            value={phone}
             onChange={handleChange}
           />
         </Label>
@@ -67,9 +80,3 @@ export function Input(props) {
       </Form>
     );
   }
-
-
-
-Input.propTypes = {
-    formHandlerSubmit: PropTypes.func,
-  };
