@@ -17,11 +17,11 @@ export function Contacts() {
   return (
     <div>
       <ContactsList>
-        {visibleContacts.map(({ id, name, phone }) => {
+        {visibleContacts.map(({ id, name, number }) => {
           return (
             <ContactsItem key={id}>
               <ContactName>{name}:</ContactName>
-              <ContactNumber href={`tel: ${phone}`}>{phone}</ContactNumber>
+              <ContactNumber href={`tel: ${number}`}>{number}</ContactNumber>
               <DeleteBtn
                 type="button"
                 onClick={() => {

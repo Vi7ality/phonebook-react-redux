@@ -1,5 +1,5 @@
 import { Contacts } from 'components/Contacts/Contacts';
-import { Input } from 'components/Form/Form';
+import { ContactForm } from 'components/ContactForm/ContactForm';
 import { Filter } from 'components/Filter/Filter';
 import { ContactsPart, PhonebookStyle, Title } from './Phonebook.styled';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,7 +21,7 @@ export function Phonebook() {
     <PhonebookStyle>
       <div>
         <Title>Phonebook</Title>
-        <Input></Input>
+        <ContactForm></ContactForm>
       </div>
       <ContactsPart>
         <Title>Contacts</Title>

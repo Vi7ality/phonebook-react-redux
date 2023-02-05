@@ -1,16 +1,15 @@
 import { useState } from 'react';
-import { nanoid } from 'nanoid';
+
 import { Form, FormButton, FormInput, Label, LabelText } from './Form.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts } from 'redux/selectors';
 import Notiflix from 'notiflix';
 import { addContact } from 'redux/operations';
 
-export function Input() {
+export function ContactForm() {
 
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [id, setId] = useState('')
+  const [number, setNumber] = useState('');
 
   const contacts = useSelector(selectContacts);
     const dispatch = useDispatch();
@@ -21,13 +20,13 @@ export function Input() {
       case 'name':
         setName(value);
         break
-      case 'phone':
-        setPhone(value);
+      case 'number':
+        setNumber(value);
         break
       default:
         return
     }
-    setId(nanoid(5));
+
   };
 
   const onSubmit = event => {
@@ -40,15 +39,14 @@ export function Input() {
       Notiflix.Notify.failure(`${name} is already exist in your contacts`);
       return;
     }
-    dispatch(addContact({name, phone, id}));
+    dispatch(addContact({name, number}));
     reset();
   };
 
 
   const reset = () => {
     setName('');
-    setPhone('');
-    setId('')
+    setNumber('');
   };
 
     return (
@@ -68,11 +66,11 @@ export function Input() {
         <Label> <LabelText>Number</LabelText>
           <FormInput
             type="tel"
-            name="phone"
+            name="number"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
-            value={phone}
+            value={number}
             onChange={handleChange}
           />
         </Label>
