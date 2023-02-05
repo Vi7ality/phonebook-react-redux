@@ -7,7 +7,7 @@ import { selectError, selectIsLoading } from 'redux/selectors';
 import { useEffect } from 'react';
 import { fetchContacts } from 'redux/operations';
 
-export function Phonebook() {
+ function Phonebook() {
   const dispatch = useDispatch();
 
   const isLoading = useSelector(selectIsLoading);
@@ -33,3 +33,5 @@ export function Phonebook() {
     </PhonebookStyle>
   );
 }
+
+export default Phonebook;

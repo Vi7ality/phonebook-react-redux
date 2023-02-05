@@ -10,6 +10,7 @@ export const AppBar = () => {
     return (
         <header>
             <NavLink to={'/'}>Home</NavLink>
+            {isLoggedIn && <NavLink to={'/phonebook'}>Phonebook</NavLink>}
             {isLoggedIn ? (<UserMenu></UserMenu>) : (<AuthNav></AuthNav>)}
         </header>
 
