@@ -1,19 +1,16 @@
-import { Container } from 'components/Container/Container.styled';
+
+import { Container } from '@chakra-ui/react'
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import { AppBar } from '../AppBar/AppBar';
 
 export const SharedLayout = () => {
   return (
-    <div>
-      <Container>
+    <Container maxW='container.xl' padding={0}>
         <AppBar></AppBar>
-      </Container>
-      <Container>
         <Suspense fallback={null}>
           <Outlet />
         </Suspense>
-      </Container>
-    </div>
+    </Container>
   );
 };

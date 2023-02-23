@@ -1,5 +1,5 @@
+import { Flex, Link } from '@chakra-ui/layout';
 import { AuthNav } from 'components/AuthNav/AuthNav';
-import { Container } from 'components/Container/Container.styled';
 import { UserMenu } from 'components/UserMenu/UserMenu';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -10,9 +10,16 @@ export const AppBar = () => {
 
   return (
     <header>
-        <NavLink to={'/'}>Home</NavLink>
-        {isLoggedIn && <NavLink to={'/phonebook'}>Phonebook</NavLink>}
+      <Flex px="15px" py="10px" align="center" justify='space-between' bg='teal.50'>
+        <Flex>
+          <Link mr='10px'>
+            <NavLink to={'/'}>Home</NavLink>
+          </Link>
+          {isLoggedIn && <Link><NavLink to={'/phonebook'}>Phonebook</NavLink></Link>}
+        </Flex>
+
         {isLoggedIn ? <UserMenu></UserMenu> : <AuthNav></AuthNav>}
+      </Flex>
     </header>
   );
 };
