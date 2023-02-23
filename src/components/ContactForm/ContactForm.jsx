@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/form-control';
 import { Input } from '@chakra-ui/input';
 import { Button } from '@chakra-ui/button';
-import { Text, VStack } from '@chakra-ui/layout';
+import { VStack } from '@chakra-ui/layout';
 
 export function ContactForm() {
   const [name, setName] = useState('');
