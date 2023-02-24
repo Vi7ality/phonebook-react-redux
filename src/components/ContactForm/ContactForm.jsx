@@ -13,6 +13,7 @@ import { Input } from '@chakra-ui/input';
 import { Button } from '@chakra-ui/button';
 import { VStack } from '@chakra-ui/layout';
 
+
 export function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
