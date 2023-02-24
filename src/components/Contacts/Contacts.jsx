@@ -1,5 +1,6 @@
 import { Button } from '@chakra-ui/button';
-import { ListItem, Text, UnorderedList, VStack } from '@chakra-ui/layout';
+import { ListItem, Text, UnorderedList } from '@chakra-ui/layout';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteContact } from 'redux/operations';
 import { selectVisibleContacts } from 'redux/selectors';
